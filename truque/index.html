@@ -369,29 +369,46 @@
       }
     }, rand(3500, 6200));
 
-    // ===== Novos comentários espontâneos =====
-    let injected = 0, MAX_INJECT = 6;
-    function injectRandomComment(){
-      if(injected >= MAX_INJECT) return;
-      const text = poolComments[rand(0, poolComments.length-1)];
-      const namePool = ['André Lima','Beatriz Rocha','Cláudio Nunes','Daniela Pires','Eduardo Matos','Fernanda Reis','Gustavo Azevedo','Helena Moura'];
-      const avatarPool = ['👨','👩','🧑'];
-      const c = {
-        name:namePool[rand(0,namePool.length-1)],
-        avatar:avatarPool[rand(0,avatarPool.length-1)],
-        avatarUrl:'',
-        text,
-        likes:rand(3,25),
-        mins:rand(1,15),
-        replies:[]
-      };
-      c._id = `auto-${Date.now()}`;
-      listEl.insertAdjacentHTML('afterbegin', commentHTML(c));
-      injected++;
-    }
-    setInterval(()=>{
-      if(Math.random() < 0.6) injectRandomComment();
-    }, rand(9000, 15000));
+   // ===== Novos comentários espontâneos (híbrido) =====
+let injected = 0, MAX_INJECT = 6;
+
+const avatarPool = [
+  { url: 'img/homem1.png' },
+  { url: 'img/homem3.png' },
+  { url: 'img/homem4.png' },
+  { url: 'img/homem5.jpeg' },
+  { url: 'img/homem6.jpeg' },
+  { url: 'img/img2.jpeg' },
+  { url: 'img/img4.jpeg' },
+  { url: 'img/img5.jpeg' },
+  { url: 'img/img6.jpeg' },
+  { emoji: '👨' }, { emoji: '👩' }, { emoji: '🧑' }
+];
+
+function injectRandomComment(){
+  if(injected >= MAX_INJECT) return;
+
+  const text = poolComments[rand(0, poolComments.length-1)];
+  const namePool = ['André Lima','Beatriz Rocha','Cláudio Nunes','Daniela Pires','Eduardo Matos','Fernanda Reis','Gustavo Azevedo','Helena Moura'];
+  const picked = avatarPool[rand(0, avatarPool.length-1)];
+
+  const c = {
+    name: namePool[rand(0, namePool.length-1)],
+    avatarUrl: picked.url || '',
+    avatar: picked.emoji || '',
+    text,
+    likes: rand(3,25),
+    mins: rand(1,15),
+    replies: []
+  };
+  c._id = `auto-${Date.now()}`;
+  listEl.insertAdjacentHTML('afterbegin', commentHTML(c));
+  injected++;
+}
+
+setInterval(()=>{
+  if(Math.random() < 0.6) injectRandomComment();
+}, rand(9000, 15000));
 
     // Prevenir que inputs/textareas interfiram com o player
     document.addEventListener('click', (e) => {
@@ -404,6 +421,7 @@
 </body>
 
 </html>
+
 
 
 
