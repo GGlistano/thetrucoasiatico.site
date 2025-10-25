@@ -183,13 +183,27 @@
       const mainContent = document.getElementById('main');
 
       // Garantir que o pré-sell está visível e o main está oculto
-      preSell.style.display = 'flex';
-      mainContent.style.display = 'none';
+      if (preSell) preSell.style.display = 'flex';
+      if (mainContent) mainContent.style.display = 'none';
 
-      enterBtn.addEventListener('click', () => {
-        preSell.style.display = 'none';
-        mainContent.style.display = 'block';
-      });
+      if (enterBtn) {
+        enterBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          console.log('Botão clicado!');
+          if (preSell) {
+            preSell.style.display = 'none';
+            console.log('Pré-sell ocultado');
+          }
+          if (mainContent) {
+            mainContent.style.display = 'block';
+            console.log('Main exibido');
+          }
+        }, false);
+        console.log('Event listener adicionado ao botão');
+      } else {
+        console.error('Botão enterBtn não encontrado!');
+      }
 
       // ===== Utilidades =====
       const $ = (sel, ctx=document) => ctx.querySelector(sel);
@@ -455,8 +469,9 @@
       if(Math.random() < 0.6) injectRandomComment();
     }, rand(9000, 15000));
 
-    // Prevenir que inputs/textareas interfiram com o player
+    // Prevenir que inputs/textareas interfiram com o player (exceto o botão de entrada)
     document.addEventListener('click', (e) => {
+      if (e.target.id === 'enterBtn') return; // Permitir o botão de entrada
       const isInteractive = e.target.matches('input, textarea, button, a, .btn');
       if (isInteractive) {
         e.stopPropagation();
