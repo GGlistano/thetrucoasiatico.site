@@ -196,7 +196,7 @@
       ]},
       {name:'Mariana Silva', avatarUrl:'img/img4.jpeg', text:'O atendimento foi ótimo e chegou rápido. Recomendo!', likes:rand(15,55), mins:rand(60,140), replies:[]},
       {name:'Bruno Santos',avatarUrl:'img/homem1.jpeg', text:'Seguinte: façam certinho como é recomendado que dá bom!', likes:rand(20,65), mins:rand(200,320), replies:[]},
-      {name:'Renato Lopes', avatarUrl:'', text:'Achei o vídeo bem didático. Explicou o mecanismo sem enrolar.', likes:rand(10,45), mins:rand(80,180), replies:[]},
+      {name:'Renato Lopes', avatarUrl:'img/homem.jpg', text:'Achei o vídeo bem didático. Explicou o mecanismo sem enrolar.', likes:rand(10,45), mins:rand(80,180), replies:[]},
       {name:'Letícia Moraes',  avatarUrl:'img/img5.jpeg', text:'Voltei pra dizer que funcionou pra gente aqui também. 👏', likes:rand(40,120), mins:rand(90,150), replies:[]},
       {name:'Ricardo Alves', avatarUrl:'', text:'Comprei faz 1 mês e posso confirmar: mudou minha vida completamente', likes:rand(35,85), mins:rand(100,200), replies:[]},
       {name:'Patricia Lima',avatarUrl:'img/img6.jpeg', text:'Meu marido estava sem esperança. Hoje ele está outra pessoa! Gratidão 🙏', likes:rand(50,130), mins:rand(150,250), replies:[]},
@@ -227,7 +227,7 @@
         alert('Por favor, escreva um comentário antes de enviar.');
         return;
       }
-      const c = {name:'Você', avatar:'😊', avatarUrl:'', text, likes:0, mins:0, replies:[]};
+      const c = {name:'Você', avatarUrl:'img/eu.png', text, likes:0, mins:0, replies:[]};
       c._id = 'you-' + Date.now();
       listEl.insertAdjacentHTML('afterbegin', commentHTML(c));
       composeText.value = '';
@@ -336,7 +336,7 @@
         ev.stopPropagation();
         const text = form.text.value.trim();
         if(!text) return;
-        const reply = {name:'Você', avatar:'😊', avatarUrl:'', text, likes:0, mins:0};
+        const reply = {name:'Você', avatarUrl:'img/eu.png', text, likes:0, mins:0};
         reply._id = 'reply-' + Date.now();
         form.insertAdjacentHTML('beforebegin', replyHTML(reply));
         form.remove();
@@ -398,6 +398,7 @@
 </body>
 
 </html>
+
 
 
 
