@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
   <title>Transforme Sua Vida Íntima - Método Natural</title>
   <meta name="description" content="VSL com comentários dinâmicos e contador de audiência ao vivo." />
   <style>
@@ -29,6 +29,7 @@
     .comment:first-child{border-top:0}
     .avatar{width:42px;height:42px;border-radius:999px;background:#e5e7eb;display:flex;align-items:center;justify-content:center;font-size:18px;overflow:hidden;border:1px solid var(--border);flex-shrink:0}
     .avatar img{width:100%;height:100%;object-fit:cover;display:block}
+    input,textarea,select{font-size:16px!important;touch-action:manipulation}
     .bubble{background:#f8fafc;border-radius:12px;padding:12px;flex:1}
     .name{font-weight:700}
     .text{margin:6px 0 0 0}
@@ -185,21 +186,21 @@
 
     // ===== Comentários base =====
     const baseComments = [
-      {name:'Carlos Mendes', avatar:'👨', text:'Será que isso realmente funciona? Alguém aqui já testou?', likes:rand(8,40), mins:rand(80,160), replies:[
-        {name:'Roberto Silva', avatar:'👨‍💼', text:'Sim funciona cara! Eu tava com problema há uns 2 anos e em 3 semanas já senti diferença. Vale muito a pena!', likes:rand(20,70), mins:rand(60,120)},
-        {name:'Fernando Costa', avatar:'🧔', text:'Funciona sim mano, eu tava desconfiado mas resolvi testar. Melhor decisão que tomei', likes:rand(15,45), mins:rand(45,90)}
+      {name:'Carlos Mendes', avatar:'👨', avatarUrl:'', text:'Será que isso realmente funciona? Alguém aqui já testou?', likes:rand(8,40), mins:rand(80,160), replies:[
+        {name:'Roberto Silva', avatar:'👨‍💼', avatarUrl:'', text:'Sim funciona cara! Eu tava com problema há uns 2 anos e em 3 semanas já senti diferença. Vale muito a pena!', likes:rand(20,70), mins:rand(60,120)},
+        {name:'Fernando Costa', avatar:'🧔', avatarUrl:'', text:'Funciona sim mano, eu tava desconfiado mas resolvi testar. Melhor decisão que tomei', likes:rand(15,45), mins:rand(45,90)}
       ]},
-      {name:'Juliana Almeida', avatar:'👩', text:'Comprei pro meu marido e a diferença foi absurda. Nossa relação mudou! ❤️', likes:rand(120,260), mins:rand(140,220), replies:[]},
-      {name:'Pedro Oliveira', avatar:'🧑', text:'Eu tinha vergonha de falar sobre isso, mas esse produto salvou meu casamento. Me sinto com 20 anos!', likes:rand(90,210), mins:rand(240,360), replies:[
-        {name:'Rafael Costa', avatar:'👨', text:'Valeu compartilhar, irmão. Tava precisando de um depoimento real assim.', likes:rand(6,24), mins:rand(120,220)}
+      {name:'Juliana Almeida', avatar:'👩', avatarUrl:'', text:'Comprei pro meu marido e a diferença foi absurda. Nossa relação mudou! ❤️', likes:rand(120,260), mins:rand(140,220), replies:[]},
+      {name:'Pedro Oliveira', avatar:'🧑', avatarUrl:'', text:'Eu tinha vergonha de falar sobre isso, mas esse produto salvou meu casamento. Me sinto com 20 anos!', likes:rand(90,210), mins:rand(240,360), replies:[
+        {name:'Rafael Costa', avatar:'👨', avatarUrl:'', text:'Valeu compartilhar, irmão. Tava precisando de um depoimento real assim.', likes:rand(6,24), mins:rand(120,220)}
       ]},
-      {name:'Mariana Silva', avatar:'👩', text:'O atendimento foi ótimo e chegou rápido. Recomendo!', likes:rand(15,55), mins:rand(60,140), replies:[]},
-      {name:'Bruno Santos', avatar:'👨', text:'Seguinte: façam certinho como é recomendado que dá bom!', likes:rand(20,65), mins:rand(200,320), replies:[]},
-      {name:'Renato Lopes', avatar:'👨', text:'Achei o vídeo bem didático. Explicou o mecanismo sem enrolar.', likes:rand(10,45), mins:rand(80,180), replies:[]},
-      {name:'Letícia Moraes', avatar:'👩', text:'Voltei pra dizer que funcionou pra gente aqui também. 👏', likes:rand(40,120), mins:rand(90,150), replies:[]},
-      {name:'Ricardo Alves', avatar:'👨', text:'Comprei faz 1 mês e posso confirmar: mudou minha vida completamente', likes:rand(35,85), mins:rand(100,200), replies:[]},
-      {name:'Patricia Lima', avatar:'👩', text:'Meu marido estava sem esperança. Hoje ele está outra pessoa! Gratidão 🙏', likes:rand(50,130), mins:rand(150,250), replies:[]},
-      {name:'André Rocha', avatar:'🧑', text:'Método 100% natural, sem química. Isso fez toda diferença pra mim', likes:rand(25,70), mins:rand(180,300), replies:[]},
+      {name:'Mariana Silva', avatar:'👩', avatarUrl:'', text:'O atendimento foi ótimo e chegou rápido. Recomendo!', likes:rand(15,55), mins:rand(60,140), replies:[]},
+      {name:'Bruno Santos', avatar:'👨', avatarUrl:'', text:'Seguinte: façam certinho como é recomendado que dá bom!', likes:rand(20,65), mins:rand(200,320), replies:[]},
+      {name:'Renato Lopes', avatar:'👨', avatarUrl:'', text:'Achei o vídeo bem didático. Explicou o mecanismo sem enrolar.', likes:rand(10,45), mins:rand(80,180), replies:[]},
+      {name:'Letícia Moraes', avatar:'👩', avatarUrl:'', text:'Voltei pra dizer que funcionou pra gente aqui também. 👏', likes:rand(40,120), mins:rand(90,150), replies:[]},
+      {name:'Ricardo Alves', avatar:'👨', avatarUrl:'', text:'Comprei faz 1 mês e posso confirmar: mudou minha vida completamente', likes:rand(35,85), mins:rand(100,200), replies:[]},
+      {name:'Patricia Lima', avatar:'👩', avatarUrl:'', text:'Meu marido estava sem esperança. Hoje ele está outra pessoa! Gratidão 🙏', likes:rand(50,130), mins:rand(150,250), replies:[]},
+      {name:'André Rocha', avatar:'🧑', avatarUrl:'', text:'Método 100% natural, sem química. Isso fez toda diferença pra mim', likes:rand(25,70), mins:rand(180,300), replies:[]},
     ];
 
     const poolComments = [
@@ -226,7 +227,7 @@
         alert('Por favor, escreva um comentário antes de enviar.');
         return;
       }
-      const c = {name:'Você', avatar:'😊', text, likes:0, mins:0, replies:[]};
+      const c = {name:'Você', avatar:'😊', avatarUrl:'', text, likes:0, mins:0, replies:[]};
       c._id = 'you-' + Date.now();
       listEl.insertAdjacentHTML('afterbegin', commentHTML(c));
       composeText.value = '';
@@ -243,9 +244,10 @@
     }
 
     function commentHTML(c){
+      const avatarContent = c.avatarUrl ? `<img src="${c.avatarUrl}" alt="${c.name}" />` : (c.avatar || '🗣️');
       return `
         <article class="comment">
-          <div class="avatar">${c.avatar || '🗣️'}</div>
+          <div class="avatar">${avatarContent}</div>
           <div style="flex:1">
             <div class="bubble">
               <strong class="name">${c.name}</strong>
@@ -261,9 +263,10 @@
     }
 
     function replyHTML(r){
+      const avatarContent = r.avatarUrl ? `<img src="${r.avatarUrl}" alt="${r.name}" />` : (r.avatar || '🗣️');
       return `
         <article class="comment reply">
-          <div class="avatar">${r.avatar || '🗣️'}</div>
+          <div class="avatar">${avatarContent}</div>
           <div style="flex:1">
             <div class="bubble">
               <strong class="name">${r.name}</strong>
@@ -333,7 +336,7 @@
         ev.stopPropagation();
         const text = form.text.value.trim();
         if(!text) return;
-        const reply = {name:'Você', avatar:'😊', text, likes:0, mins:0};
+        const reply = {name:'Você', avatar:'😊', avatarUrl:'', text, likes:0, mins:0};
         reply._id = 'reply-' + Date.now();
         form.insertAdjacentHTML('beforebegin', replyHTML(reply));
         form.remove();
@@ -370,6 +373,7 @@
       const c = {
         name:namePool[rand(0,namePool.length-1)],
         avatar:avatarPool[rand(0,avatarPool.length-1)],
+        avatarUrl:'',
         text,
         likes:rand(3,25),
         mins:rand(1,15),
