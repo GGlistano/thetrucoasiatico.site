@@ -10,7 +10,7 @@
       --bg:#f7f7f8;--text:#0f172a;--muted:#475569;--brand:#dc2626;--card:#ffffff;--border:#e5e7eb;
     }
     *{box-sizing:border-box}
-    html,body{margin:0;padding:0}
+    html,body{margin:0;padding:0;overflow-x:hidden}
     body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,sans-serif;color:var(--text);background:var(--bg)}
     .container{max-width:960px;margin:0 auto;padding:0 16px}
     .hero{background:linear-gradient(90deg,#ef4444,#b91c1c);color:#fff;padding:56px 16px;text-align:center}
@@ -21,23 +21,66 @@
     .ratio{position:relative;width:100%;padding-bottom:56.25%;background:#000;border-radius:14px;overflow:hidden}
     .ratio > *{position:absolute;inset:0;width:100%;height:100%}
     .viewers{display:flex;align-items:center;justify-content:center;gap:8px;color:#0f172a;font-weight:600;margin:10px 0 24px}
-    .dot{position:relative;width:10px;height:10px;background:#22c55e;border-radius:999px;box-shadow:0 0 0 6px rgba(34,197,94,.15)}
+    .dot{position:relative;width:10px;height:10px;background:#22c55e;border-radius:999px;animation:pulse 2s cubic-bezier(0.4,0,0.6,1) infinite}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
     .comments{padding:24px}
     .comments h2{display:flex;align-items:center;gap:8px;margin:0 0 16px;font-size:20px}
     .comment{display:flex;gap:10px;padding:14px 0;border-top:1px solid var(--border)}
     .comment:first-child{border-top:0}
-    .avatar{width:40px;height:40px;border-radius:999px;background:#cbd5e1;display:flex;align-items:center;justify-content:center;font-size:18px}
-    .bubble{background:#f8fafc;border-radius:12px;padding:12px}
+    .avatar{width:42px;height:42px;border-radius:999px;background:#e5e7eb;display:flex;align-items:center;justify-content:center;font-size:18px;overflow:hidden;border:1px solid var(--border);flex-shrink:0}
+    .avatar img{width:100%;height:100%;object-fit:cover;display:block}
+    .bubble{background:#f8fafc;border-radius:12px;padding:12px;flex:1}
     .name{font-weight:700}
     .text{margin:6px 0 0 0}
     .meta{display:flex;gap:14px;margin-top:6px;color:var(--muted);font-size:13px;align-items:center}
-    .btn{appearance:none;border:0;background:none;color:var(--muted);cursor:pointer;font-weight:600}
-    .btn:hover{color:var(--brand)}
+    .btn{appearance:none;border:0;background:none;color:var(--muted);cursor:pointer;font-weight:600;padding:4px 8px;border-radius:6px;transition:all 0.2s}
+    .btn:hover{color:var(--brand);background:rgba(220,38,38,0.05)}
+    .btn:active{transform:scale(0.95)}
     .reply{margin-left:50px}
     .more{display:block;margin:16px auto 0;text-align:center}
-    .more button{background:#111827;color:#fff;border:0;padding:10px 16px;border-radius:10px;font-weight:800;cursor:pointer}
+    .more button{background:#111827;color:#fff;border:0;padding:10px 16px;border-radius:10px;font-weight:800;cursor:pointer;transition:opacity 0.2s}
     .more button:hover{opacity:.92}
-    @media (max-width:480px){.comments{padding:16px}.reply{margin-left:46px}}
+    .more button:disabled{opacity:.5;cursor:not-allowed}
+
+    /* Notificação de compra */
+    .purchase-notification{
+      position:fixed;
+      bottom:24px;
+      right:24px;
+      background:#fff;
+      border-radius:12px;
+      box-shadow:0 10px 40px rgba(0,0,0,0.15);
+      padding:16px;
+      display:flex;
+      align-items:center;
+      gap:12px;
+      transform:translateX(400px);
+      transition:transform 0.5s cubic-bezier(0.34,1.56,0.64,1);
+      z-index:9999;
+      max-width:320px;
+    }
+    .purchase-notification.show{transform:translateX(0)}
+    .purchase-notification .check{
+      width:48px;
+      height:48px;
+      background:#22c55e;
+      border-radius:999px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:#fff;
+      font-size:24px;
+      flex-shrink:0;
+    }
+    .purchase-notification .info{flex:1}
+    .purchase-notification .info strong{display:block;color:#0f172a;font-size:14px}
+    .purchase-notification .info span{color:#64748b;font-size:13px}
+
+    @media (max-width:480px){
+      .comments{padding:16px}
+      .reply{margin-left:46px}
+      .purchase-notification{right:16px;bottom:16px;max-width:calc(100% - 32px)}
+    }
   </style>
 </head>
 <body>
@@ -49,7 +92,7 @@
     </div>
   </header>
 
-  <!-- VSL (todo o script do VTurb fica diretamente aqui) -->
+  <!-- VSL -->
   <section class="video-wrap">
     <div class="card" style="padding:12px">
       <div class="ratio">
@@ -63,18 +106,20 @@
     </div>
   </section>
 
-  <!-- COMENTÁRIOS (dinâmicos com randomizador leve) -->
+  <!-- COMENTÁRIOS -->
   <section id="comments" class="container">
     <div class="card comments">
       <h2>💬 Comentários</h2>
 
       <!-- Composer no topo -->
       <form id="composer" class="composer" style="margin:4px 0 16px">
-        <div class="bubble">
-          <label style="display:block;font-size:13px;color:var(--muted);margin-bottom:6px">Comente como <strong>Você</strong></label>
-          <textarea id="composeText" required placeholder="Escreva um comentário..." rows="2" style="width:100%;padding:10px;border:1px solid var(--border);border-radius:8px"></textarea>
-          <div style="display:flex;gap:8px;margin-top:8px">
-            <button type="submit" class="btn" style="background:#111827;color:#fff;padding:8px 12px;border-radius:8px">Publicar</button>
+        <div style="display:flex;gap:10px">
+          <div class="avatar">😊</div>
+          <div style="flex:1">
+            <textarea id="composeText" required placeholder="Adicione um comentário..." rows="2" style="width:100%;padding:10px;border:1px solid var(--border);border-radius:8px;resize:none;font-family:inherit"></textarea>
+            <div style="display:flex;gap:8px;margin-top:8px">
+              <button type="submit" style="background:#dc2626;color:#fff;border:0;padding:8px 16px;border-radius:8px;font-weight:600;cursor:pointer">Comentar</button>
+            </div>
           </div>
         </div>
       </form>
@@ -84,28 +129,65 @@
     </div>
   </section>
 
+  <!-- Notificação de compra -->
+  <div id="purchaseNotif" class="purchase-notification">
+    <div class="check">✓</div>
+    <div class="info">
+      <strong id="purchaseName">João Silva</strong>
+      <span>acabou de comprar</span>
+    </div>
+  </div>
+
   <script>
     // ===== Utilidades =====
     const $ = (sel, ctx=document) => ctx.querySelector(sel);
     const $$ = (sel, ctx=document) => Array.from(ctx.querySelectorAll(sel));
     const rand = (min,max) => Math.floor(Math.random()*(max-min+1))+min;
 
-    // ===== Contador de audiência ao vivo (flutuação leve) =====
-    const viewEl = document.getElementById('viewCount');
-    let viewers = rand(980, 1620);
+    // ===== Contador de audiência ao vivo =====
+    const viewEl = $('#viewCount');
+    let viewers = rand(450, 2000);
     const clamp = (v,lo,hi)=>Math.max(lo,Math.min(hi,v));
     const fmt = n => n.toLocaleString('pt-BR');
     function tickViewers(){
-      viewers = clamp(viewers + rand(-30,45), 720, 2600);
+      viewers = clamp(viewers + rand(-30,45), 450, 2000);
       viewEl.textContent = fmt(viewers);
     }
     viewEl.textContent = fmt(viewers);
-    setInterval(tickViewers, rand(2500,4800));
+    setInterval(tickViewers, rand(3000,7000));
 
-    // ===== Comentários base + pool extra =====
+    // ===== Notificações de compra (após 3 minutos) =====
+    const purchaseNames = [
+      'João Silva', 'Maria Santos', 'Pedro Oliveira', 'Ana Costa', 'Carlos Mendes',
+      'Juliana Almeida', 'Roberto Silva', 'Fernanda Castro', 'Ricardo Santos',
+      'Camila Rodrigues', 'André Martins', 'Patricia Ferreira', 'Marcos Ribeiro',
+      'Amanda Lima', 'Fernando Costa', 'Luciana Martins', 'Paulo Souza',
+      'Beatriz Oliveira', 'Diego Pereira', 'Mariana Souza', 'Rafael Lima',
+      'Gabriela Costa', 'Thiago Martins', 'Vanessa Santos', 'Bruno Alves'
+    ];
+    const notif = $('#purchaseNotif');
+    const nameEl = $('#purchaseName');
+    let showNotifications = false;
+
+    function showPurchaseNotif(){
+      if(!showNotifications) return;
+      const name = purchaseNames[rand(0, purchaseNames.length-1)];
+      nameEl.textContent = name;
+      notif.classList.add('show');
+      setTimeout(() => notif.classList.remove('show'), 5000);
+    }
+
+    setTimeout(() => {
+      showNotifications = true;
+      showPurchaseNotif();
+      setInterval(showPurchaseNotif, rand(10000, 25000));
+    }, 180000); // 3 minutos
+
+    // ===== Comentários base =====
     const baseComments = [
       {name:'Carlos Mendes', avatar:'👨', text:'Será que isso realmente funciona? Alguém aqui já testou?', likes:rand(8,40), mins:rand(80,160), replies:[
-        {name:'Ana Paula', avatar:'👩', text:'Com meu marido funcionou demais. Em 2 semanas já notamos diferença!', likes:rand(20,70), mins:rand(60,120)},
+        {name:'Roberto Silva', avatar:'👨‍💼', text:'Sim funciona cara! Eu tava com problema há uns 2 anos e em 3 semanas já senti diferença. Vale muito a pena!', likes:rand(20,70), mins:rand(60,120)},
+        {name:'Fernando Costa', avatar:'🧔', text:'Funciona sim mano, eu tava desconfiado mas resolvi testar. Melhor decisão que tomei', likes:rand(15,45), mins:rand(45,90)}
       ]},
       {name:'Juliana Almeida', avatar:'👩', text:'Comprei pro meu marido e a diferença foi absurda. Nossa relação mudou! ❤️', likes:rand(120,260), mins:rand(140,220), replies:[]},
       {name:'Pedro Oliveira', avatar:'🧑', text:'Eu tinha vergonha de falar sobre isso, mas esse produto salvou meu casamento. Me sinto com 20 anos!', likes:rand(90,210), mins:rand(240,360), replies:[
@@ -113,39 +195,48 @@
       ]},
       {name:'Mariana Silva', avatar:'👩', text:'O atendimento foi ótimo e chegou rápido. Recomendo!', likes:rand(15,55), mins:rand(60,140), replies:[]},
       {name:'Bruno Santos', avatar:'👨', text:'Seguinte: façam certinho como é recomendado que dá bom!', likes:rand(20,65), mins:rand(200,320), replies:[]},
+      {name:'Renato Lopes', avatar:'👨', text:'Achei o vídeo bem didático. Explicou o mecanismo sem enrolar.', likes:rand(10,45), mins:rand(80,180), replies:[]},
+      {name:'Letícia Moraes', avatar:'👩', text:'Voltei pra dizer que funcionou pra gente aqui também. 👏', likes:rand(40,120), mins:rand(90,150), replies:[]},
+      {name:'Ricardo Alves', avatar:'👨', text:'Comprei faz 1 mês e posso confirmar: mudou minha vida completamente', likes:rand(35,85), mins:rand(100,200), replies:[]},
+      {name:'Patricia Lima', avatar:'👩', text:'Meu marido estava sem esperança. Hoje ele está outra pessoa! Gratidão 🙏', likes:rand(50,130), mins:rand(150,250), replies:[]},
+      {name:'André Rocha', avatar:'🧑', text:'Método 100% natural, sem química. Isso fez toda diferença pra mim', likes:rand(25,70), mins:rand(180,300), replies:[]},
     ];
 
     const poolComments = [
       'Achei o conteúdo da VSL muito claro. Parabéns!',
       'No começo fiquei cético, mas hoje recomendo de olhos fechados.',
       'Voltei aqui só pra agradecer. Confiança lá em cima novamente 🙏',
-      'Alguém sabe em quantos dias chega em Maputo?',
-      'Apoio 100% métodos naturais. Essa abordagem faz sentido real.',
-      'Meu relacionamento agradece. Obrigado mesmo!',
       'Importante: sigam o passo a passo direitinho que dá resultado.',
-      'Paguei no M-Pesa sem stress, tudo ok.',
+      'Meu relacionamento agradece. Obrigado mesmo!',
+      'Tava com receio, mas o vídeo me convenceu pelo mecanismo explicado.',
       'Vim por indicação de um amigo. Curti demais o conteúdo.',
-      'Tava com receio, mas o vídeo me convenceu pelo mecanismo explicado.'
+      'Apoio 100% métodos naturais. Essa abordagem faz sentido real.'
     ];
 
     // ===== Render =====
-    const listEl = document.getElementById('commentList');
-    // Composer topo (novo comentário como Você)
-    const composer = document.getElementById('composer');
-    const composeText = document.getElementById('composeText');
+    const listEl = $('#commentList');
+    const composer = $('#composer');
+    const composeText = $('#composeText');
+
     composer.addEventListener('submit', (e)=>{
       e.preventDefault();
+      e.stopPropagation();
       const text = composeText.value.trim();
-      if(!text) return;
-      const c = {name:'Você', avatar:'🗣️', text, likes:0, mins:rand(1,3), replies:[]};
+      if(!text) {
+        alert('Por favor, escreva um comentário antes de enviar.');
+        return;
+      }
+      const c = {name:'Você', avatar:'😊', text, likes:0, mins:0, replies:[]};
       c._id = 'you-' + Date.now();
       listEl.insertAdjacentHTML('afterbegin', commentHTML(c));
       composeText.value = '';
     });
-    let rendered = 0; // quantos comentários já renderizamos
-    const PAGE = 3;   // por clique
+
+    let rendered = 0;
+    const PAGE = 5;
 
     function timeAgo(mins){
+      if(mins === 0) return 'Agora';
       if(mins < 60) return `${mins} min atrás`;
       const h = Math.floor(mins/60);
       return `${h}h atrás`;
@@ -153,39 +244,37 @@
 
     function commentHTML(c){
       return `
-        <article class="comment" aria-label="Comentário">
-          <div class="avatar">${c.avatar||'👤'}</div>
-          <div>
+        <article class="comment">
+          <div class="avatar">${c.avatar || '🗣️'}</div>
+          <div style="flex:1">
             <div class="bubble">
               <strong class="name">${c.name}</strong>
               <p class="text">${c.text}</p>
             </div>
             <div class="meta">
-              <button class="btn btn-like" data-id="${c._id}">👍 <span>${c.likes}</span></button>
+              <button class="btn btn-like" data-id="${c._id}" onclick="event.stopPropagation();">👍 <span>${c.likes}</span></button>
               <span>${timeAgo(c.mins)}</span>
-              <button class="btn btn-reply" data-id="${c._id}">Responder</button>
+              <button class="btn btn-reply" data-id="${c._id}" onclick="event.stopPropagation();">Responder</button>
             </div>
           </div>
-        </article>
-      `;
+        </article>`;
     }
 
     function replyHTML(r){
       return `
-        <article class="comment reply" aria-label="Resposta">
-          <div class="avatar">${r.avatar||'👤'}</div>
-          <div>
+        <article class="comment reply">
+          <div class="avatar">${r.avatar || '🗣️'}</div>
+          <div style="flex:1">
             <div class="bubble">
               <strong class="name">${r.name}</strong>
               <p class="text">${r.text}</p>
             </div>
             <div class="meta">
-              <button class="btn btn-like" data-id="${r._id}">👍 <span>${r.likes}</span></button>
+              <button class="btn btn-like" data-id="${r._id}" onclick="event.stopPropagation();">👍 <span>${r.likes}</span></button>
               <span>${timeAgo(r.mins)}</span>
             </div>
           </div>
-        </article>
-      `;
+        </article>`;
     }
 
     function renderChunk(){
@@ -204,50 +293,63 @@
 
     // Likes locais
     listEl.addEventListener('click', (e)=>{
+      e.stopPropagation();
       const btn = e.target.closest('.btn-like');
       if(!btn) return;
       const span = btn.querySelector('span');
       span.textContent = (+span.textContent + 1);
     });
 
-    // "Responder" abre um input mínimo inline (sem backend)
+    // "Responder"
     listEl.addEventListener('click', (e)=>{
+      e.stopPropagation();
       const btn = e.target.closest('.btn-reply');
       if(!btn) return;
       const art = btn.closest('.comment');
-      if(art.querySelector('form')) return; // já existe
+      if(art.querySelector('form')) return;
+
       const form = document.createElement('form');
       form.innerHTML = `
-        <div class=\"reply\" style=\"margin-top:8px\">
-          <div class=\"bubble\">
-            <label style=\"display:block;font-size:13px;color:var(--muted);margin-bottom:6px\">Responder como <strong>Você</strong></label>
-            <textarea name=\"text\" required placeholder=\"Escreva sua resposta...\" rows=\"2\" style=\"width:100%;padding:10px;border:1px solid var(--border);border-radius:8px\"></textarea>
-            <div style=\"display:flex;gap:8px;margin-top:8px\">
-              <button type=\"submit\" class=\"btn\" style=\"background:#111827;color:#fff;padding:8px 12px;border-radius:8px\">Publicar</button>
-              <button type=\"button\" class=\"btn\" onclick=\"this.closest('form').remove()\">Cancelar</button>
+        <div class="reply" style="margin-top:8px;display:flex;gap:10px">
+          <div class="avatar">😊</div>
+          <div style="flex:1">
+            <textarea name="text" required placeholder="Escreva sua resposta..." rows="2" style="width:100%;padding:10px;border:1px solid var(--border);border-radius:8px;resize:none;font-family:inherit"></textarea>
+            <div style="display:flex;gap:8px;margin-top:8px">
+              <button type="submit" style="background:#dc2626;color:#fff;border:0;padding:6px 12px;border-radius:6px;font-weight:600;cursor:pointer;font-size:13px">Publicar</button>
+              <button type="button" class="cancel-btn" style="background:#e5e7eb;color:#0f172a;border:0;padding:6px 12px;border-radius:6px;font-weight:600;cursor:pointer;font-size:13px">Cancelar</button>
             </div>
           </div>
         </div>`;
+
       art.appendChild(form);
+
+      form.querySelector('.cancel-btn').addEventListener('click', (ev)=>{
+        ev.stopPropagation();
+        form.remove();
+      });
+
       form.addEventListener('submit', (ev)=>{
         ev.preventDefault();
+        ev.stopPropagation();
         const text = form.text.value.trim();
         if(!text) return;
-        const reply = {name:'Você', avatar:'🗣️', text, likes:0, mins:rand(1,3)};
+        const reply = {name:'Você', avatar:'😊', text, likes:0, mins:0};
+        reply._id = 'reply-' + Date.now();
         form.insertAdjacentHTML('beforebegin', replyHTML(reply));
         form.remove();
       });
     });
-    });
 
     // Carregar mais
-    $('#loadMore').addEventListener('click', renderChunk);
+    $('#loadMore').addEventListener('click', (e)=>{
+      e.stopPropagation();
+      renderChunk();
+    });
 
     // Render inicial
     renderChunk();
 
-    // ===== Randomizador leve e contínuo =====
-    // 1) Incremento aleatório de likes
+    // ===== Randomizador de likes =====
     setInterval(()=>{
       const likeSpans = $$('.btn-like span');
       if(!likeSpans.length) return;
@@ -258,28 +360,36 @@
       }
     }, rand(3500, 6200));
 
-    // 2) Novo comentário espontâneo do pool (até um limite suave)
+    // ===== Novos comentários espontâneos =====
     let injected = 0, MAX_INJECT = 6;
     function injectRandomComment(){
       if(injected >= MAX_INJECT) return;
       const text = poolComments[rand(0, poolComments.length-1)];
       const namePool = ['André Lima','Beatriz Rocha','Cláudio Nunes','Daniela Pires','Eduardo Matos','Fernanda Reis','Gustavo Azevedo','Helena Moura'];
       const avatarPool = ['👨','👩','🧑'];
-      const c = {name:namePool[rand(0,namePool.length-1)], avatar:avatarPool[rand(0,avatarPool.length-1)], text, likes:rand(3,25), mins:rand(15,90), replies:[]};
+      const c = {
+        name:namePool[rand(0,namePool.length-1)],
+        avatar:avatarPool[rand(0,avatarPool.length-1)],
+        text,
+        likes:rand(3,25),
+        mins:rand(1,15),
+        replies:[]
+      };
       c._id = `auto-${Date.now()}`;
-      const html = commentHTML(c);
-      $('#commentList').insertAdjacentHTML('afterbegin', html);
+      listEl.insertAdjacentHTML('afterbegin', commentHTML(c));
       injected++;
     }
     setInterval(()=>{
       if(Math.random() < 0.6) injectRandomComment();
     }, rand(9000, 15000));
 
-    // 3) Tempo passando (comentários ficam "mais antigos")
-    setInterval(()=>{
-      // não alteramos o texto, apenas simulamos passagem do tempo
-      // (em landing, manter coerência sem reprocessar DOM inteiro)
-    }, 60000);
+    // Prevenir que inputs/textareas interfiram com o player
+    document.addEventListener('click', (e) => {
+      const isInteractive = e.target.matches('input, textarea, button, a, .btn');
+      if (isInteractive) {
+        e.stopPropagation();
+      }
+    }, true);
   </script>
 </body>
 </html>
