@@ -4,31 +4,16 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Transforme Sua Vida Íntima - Método Natural</title>
-
-  <!-- VTurb player (mantido exatamente como pedido) -->
-  <script type="text/javascript">
-    var s=document.createElement("script");
-    s.src="https://scripts.converteai.net/9d93e4b2-3654-4bea-bda0-107c1328d520/players/68fcde386cb1b30ad41dc6c3/v4/player.js";
-    s.async=!0;
-    document.head.appendChild(s);
-  </script>
-
+  <meta name="description" content="VSL com comentários dinâmicos e contador de audiência ao vivo." />
   <style>
     :root{
       --bg:#f7f7f8;--text:#0f172a;--muted:#475569;--brand:#dc2626;--card:#ffffff;--border:#e5e7eb;
     }
     *{box-sizing:border-box}
     html,body{margin:0;padding:0}
-    body{
-      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Ubuntu,Inter,system-ui,sans-serif;
-      color:var(--text);background:var(--bg);
-      -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
-    }
+    body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,sans-serif;color:var(--text);background:var(--bg)}
     .container{max-width:960px;margin:0 auto;padding:0 16px}
-    .hero{
-      background:linear-gradient(90deg,#ef4444,#b91c1c);
-      color:#fff;padding:56px 16px;text-align:center
-    }
+    .hero{background:linear-gradient(90deg,#ef4444,#b91c1c);color:#fff;padding:56px 16px;text-align:center}
     .hero h1{margin:0 0 12px;font-size:clamp(24px,4vw,40px);line-height:1.2;font-weight:800}
     .hero p{margin:0;font-size:clamp(14px,2.6vw,18px);opacity:.95}
     .card{background:var(--card);border:1px solid var(--border);border-radius:14px;box-shadow:0 10px 25px rgba(15,23,42,.06)}
@@ -36,21 +21,26 @@
     .ratio{position:relative;width:100%;padding-bottom:56.25%;background:#000;border-radius:14px;overflow:hidden}
     .ratio > *{position:absolute;inset:0;width:100%;height:100%}
     .viewers{display:flex;align-items:center;justify-content:center;gap:8px;color:#0f172a;font-weight:600;margin:10px 0 24px}
-    .dot{position:relative;width:10px;height:10px;background:#22c55e;border-radius:999px}
+    .dot{position:relative;width:10px;height:10px;background:#22c55e;border-radius:999px;box-shadow:0 0 0 6px rgba(34,197,94,.15)}
     .comments{padding:24px}
     .comments h2{display:flex;align-items:center;gap:8px;margin:0 0 16px;font-size:20px}
-    .comment{display:flex;gap:10px;padding:12px 0;border-top:1px solid var(--border)}
+    .comment{display:flex;gap:10px;padding:14px 0;border-top:1px solid var(--border)}
     .comment:first-child{border-top:0}
     .avatar{width:40px;height:40px;border-radius:999px;background:#cbd5e1;display:flex;align-items:center;justify-content:center;font-size:18px}
     .bubble{background:#f8fafc;border-radius:12px;padding:12px}
-    .meta{display:flex;gap:14px;margin-top:6px;color:var(--muted);font-size:13px}
+    .name{font-weight:700}
+    .text{margin:6px 0 0 0}
+    .meta{display:flex;gap:14px;margin-top:6px;color:var(--muted);font-size:13px;align-items:center}
     .btn{appearance:none;border:0;background:none;color:var(--muted);cursor:pointer;font-weight:600}
     .btn:hover{color:var(--brand)}
-    @media (max-width:480px){.comments{padding:16px}}
+    .reply{margin-left:50px}
+    .more{display:block;margin:16px auto 0;text-align:center}
+    .more button{background:#111827;color:#fff;border:0;padding:10px 16px;border-radius:10px;font-weight:800;cursor:pointer}
+    .more button:hover{opacity:.92}
+    @media (max-width:480px){.comments{padding:16px}.reply{margin-left:46px}}
   </style>
 </head>
 <body>
-
   <!-- HEADLINE -->
   <header class="hero">
     <div class="container">
@@ -59,84 +49,214 @@
     </div>
   </header>
 
-  <!-- VÍDEO (entre a headline e os comentários) -->
+  <!-- VSL (todo o script do VTurb fica diretamente aqui) -->
   <section class="video-wrap">
     <div class="card" style="padding:12px">
       <div class="ratio">
-        <vturb-smartplayer
-          id="vid-68fcde386cb1b30ad41dc6c3"
-          style="display:block;margin:0 auto;width:100%;height:100%;">
-        </vturb-smartplayer>
+        <vturb-smartplayer id="vid-68fcde386cb1b30ad41dc6c3" style="display:block;margin:0 auto;width:100%;height:100%"></vturb-smartplayer>
+        <script type="text/javascript" async src="https://scripts.converteai.net/9d93e4b2-3654-4bea-bda0-107c1328d520/players/68fcde386cb1b30ad41dc6c3/v4/player.js"></script>
       </div>
     </div>
-
-    <!-- contador simples (estático e leve) -->
     <div class="viewers">
-      <span class="dot"></span>
-      <span><strong>1.247</strong> pessoas assistindo agora</span>
+      <span class="dot" aria-hidden="true"></span>
+      <span><strong id="viewCount">1.247</strong> pessoas assistindo agora</span>
     </div>
   </section>
 
-  <!-- COMENTÁRIOS -->
+  <!-- COMENTÁRIOS (dinâmicos com randomizador leve) -->
   <section id="comments" class="container">
     <div class="card comments">
       <h2>💬 Comentários</h2>
-
-      <!-- 1 -->
-      <article class="comment">
-        <div class="avatar">👨</div>
-        <div>
-          <div class="bubble">
-            <strong>Carlos Mendes</strong>
-            <p>Será que isso realmente funciona? Alguém aqui já testou?</p>
-          </div>
-          <div class="meta">
-            <button class="btn">👍 23</button>
-            <span>2h atrás</span>
-          </div>
-        </div>
-      </article>
-
-      <!-- 2 -->
-      <article class="comment">
-        <div class="avatar">👩</div>
-        <div>
-          <div class="bubble">
-            <strong>Juliana Almeida</strong>
-            <p>Comprei pro meu marido e em 2 semanas a diferença foi absurda. Nossa relação mudou! ❤️</p>
-          </div>
-          <div class="meta">
-            <button class="btn">👍 187</button>
-            <span>3h atrás</span>
-          </div>
-        </div>
-      </article>
-
-      <!-- 3 -->
-      <article class="comment">
-        <div class="avatar">🧑</div>
-        <div>
-          <div class="bubble">
-            <strong>Pedro Oliveira</strong>
-            <p>Eu tinha vergonha de falar sobre isso, mas esse produto salvou meu casamento. Me sinto com 20 anos!</p>
-          </div>
-          <div class="meta">
-            <button class="btn">👍 156</button>
-            <span>5h atrás</span>
-          </div>
-        </div>
-      </article>
-
-      <!-- CTA extra opcional (remova se não quiser) -->
-      <!--
-      <div style="margin-top:16px;text-align:center">
-        <a href="#checkout" style="display:inline-block;background:#dc2626;color:#fff;padding:12px 18px;border-radius:10px;font-weight:800;text-decoration:none">
-          QUERO COMEÇAR AGORA
-        </a>
-      </div>
-      -->
+      <div id="commentList"></div>
+      <div class="more"><button id="loadMore">Ver mais comentários</button></div>
     </div>
   </section>
 
+  <script>
+    // ===== Utilidades =====
+    const $ = (sel, ctx=document) => ctx.querySelector(sel);
+    const $$ = (sel, ctx=document) => Array.from(ctx.querySelectorAll(sel));
+    const rand = (min,max) => Math.floor(Math.random()*(max-min+1))+min;
+
+    // ===== Contador de audiência ao vivo (flutuação leve) =====
+    const viewEl = document.getElementById('viewCount');
+    let viewers = rand(980, 1620);
+    const clamp = (v,lo,hi)=>Math.max(lo,Math.min(hi,v));
+    const fmt = n => n.toLocaleString('pt-BR');
+    function tickViewers(){
+      viewers = clamp(viewers + rand(-30,45), 720, 2600);
+      viewEl.textContent = fmt(viewers);
+    }
+    viewEl.textContent = fmt(viewers);
+    setInterval(tickViewers, rand(2500,4800));
+
+    // ===== Comentários base + pool extra =====
+    const baseComments = [
+      {name:'Carlos Mendes', avatar:'👨', text:'Será que isso realmente funciona? Alguém aqui já testou?', likes:rand(8,40), mins:rand(80,160), replies:[
+        {name:'Ana Paula', avatar:'👩', text:'Com meu marido funcionou demais. Em 2 semanas já notamos diferença!', likes:rand(20,70), mins:rand(60,120)},
+      ]},
+      {name:'Juliana Almeida', avatar:'👩', text:'Comprei pro meu marido e a diferença foi absurda. Nossa relação mudou! ❤️', likes:rand(120,260), mins:rand(140,220), replies:[]},
+      {name:'Pedro Oliveira', avatar:'🧑', text:'Eu tinha vergonha de falar sobre isso, mas esse produto salvou meu casamento. Me sinto com 20 anos!', likes:rand(90,210), mins:rand(240,360), replies:[
+        {name:'Rafael Costa', avatar:'👨', text:'Valeu compartilhar, irmão. Tava precisando de um depoimento real assim.', likes:rand(6,24), mins:rand(120,220)}
+      ]},
+      {name:'Mariana Silva', avatar:'👩', text:'O atendimento foi ótimo e chegou rápido. Recomendo!', likes:rand(15,55), mins:rand(60,140), replies:[]},
+      {name:'Bruno Santos', avatar:'👨', text:'Seguinte: façam certinho como é recomendado que dá bom!', likes:rand(20,65), mins:rand(200,320), replies:[]},
+    ];
+
+    const poolComments = [
+      'Achei o conteúdo da VSL muito claro. Parabéns!',
+      'No começo fiquei cético, mas hoje recomendo de olhos fechados.',
+      'Voltei aqui só pra agradecer. Confiança lá em cima novamente 🙏',
+      'Alguém sabe em quantos dias chega em Maputo?',
+      'Apoio 100% métodos naturais. Essa abordagem faz sentido real.',
+      'Meu relacionamento agradece. Obrigado mesmo!',
+      'Importante: sigam o passo a passo direitinho que dá resultado.',
+      'Paguei no M-Pesa sem stress, tudo ok.',
+      'Vim por indicação de um amigo. Curti demais o conteúdo.',
+      'Tava com receio, mas o vídeo me convenceu pelo mecanismo explicado.'
+    ];
+
+    // ===== Render =====
+    const listEl = document.getElementById('commentList');
+    let rendered = 0; // quantos comentários já renderizamos
+    const PAGE = 3;   // por clique
+
+    function timeAgo(mins){
+      if(mins < 60) return `${mins} min atrás`;
+      const h = Math.floor(mins/60);
+      return `${h}h atrás`;
+    }
+
+    function commentHTML(c){
+      return `
+        <article class="comment" aria-label="Comentário">
+          <div class="avatar">${c.avatar||'👤'}</div>
+          <div>
+            <div class="bubble">
+              <strong class="name">${c.name}</strong>
+              <p class="text">${c.text}</p>
+            </div>
+            <div class="meta">
+              <button class="btn btn-like" data-id="${c._id}">👍 <span>${c.likes}</span></button>
+              <span>${timeAgo(c.mins)}</span>
+              <button class="btn btn-reply" data-id="${c._id}">Responder</button>
+            </div>
+          </div>
+        </article>
+      `;
+    }
+
+    function replyHTML(r){
+      return `
+        <article class="comment reply" aria-label="Resposta">
+          <div class="avatar">${r.avatar||'👤'}</div>
+          <div>
+            <div class="bubble">
+              <strong class="name">${r.name}</strong>
+              <p class="text">${r.text}</p>
+            </div>
+            <div class="meta">
+              <button class="btn btn-like" data-id="${r._id}">👍 <span>${r.likes}</span></button>
+              <span>${timeAgo(r.mins)}</span>
+            </div>
+          </div>
+        </article>
+      `;
+    }
+
+    function renderChunk(){
+      const slice = baseComments.slice(rendered, rendered+PAGE);
+      slice.forEach((c, idx)=>{
+        c._id = `c${rendered+idx}-${Date.now()}`;
+        listEl.insertAdjacentHTML('beforeend', commentHTML(c));
+        (c.replies||[]).forEach((r,i)=>{
+          r._id = `r${rendered+idx}-${i}-${Date.now()}`;
+          listEl.insertAdjacentHTML('beforeend', replyHTML(r));
+        });
+      });
+      rendered += slice.length;
+      if(rendered >= baseComments.length) $('#loadMore').disabled = true;
+    }
+
+    // Likes locais
+    listEl.addEventListener('click', (e)=>{
+      const btn = e.target.closest('.btn-like');
+      if(!btn) return;
+      const span = btn.querySelector('span');
+      span.textContent = (+span.textContent + 1);
+    });
+
+    // "Responder" abre um input mínimo inline (sem backend)
+    listEl.addEventListener('click', (e)=>{
+      const btn = e.target.closest('.btn-reply');
+      if(!btn) return;
+      const art = btn.closest('.comment');
+      if(art.querySelector('form')) return; // já existe
+      const form = document.createElement('form');
+      form.innerHTML = `
+        <div class="reply" style="margin-top:8px">
+          <div class="bubble">
+            <label style="display:block;font-size:13px;color:var(--muted);margin-bottom:6px">Responder como:</label>
+            <input type="text" name="name" required placeholder="Seu nome" style="width:100%;padding:10px;border:1px solid var(--border);border-radius:8px;margin-bottom:6px" />
+            <textarea name="text" required placeholder="Escreva sua resposta..." rows="2" style="width:100%;padding:10px;border:1px solid var(--border);border-radius:8px"></textarea>
+            <div style="display:flex;gap:8px;margin-top:8px">
+              <button type="submit" class="btn" style="background:#111827;color:#fff;padding:8px 12px;border-radius:8px">Publicar</button>
+              <button type="button" class="btn" onclick="this.closest('form').remove()">Cancelar</button>
+            </div>
+          </div>
+        </div>`;
+      art.appendChild(form);
+      form.addEventListener('submit', (ev)=>{
+        ev.preventDefault();
+        const name = form.name.value.trim();
+        const text = form.text.value.trim();
+        if(!name || !text) return;
+        const reply = {name, avatar:'🗣️', text, likes:0, mins:rand(1,3)};
+        form.insertAdjacentHTML('beforebegin', replyHTML(reply));
+        form.remove();
+      });
+    });
+
+    // Carregar mais
+    $('#loadMore').addEventListener('click', renderChunk);
+
+    // Render inicial
+    renderChunk();
+
+    // ===== Randomizador leve e contínuo =====
+    // 1) Incremento aleatório de likes
+    setInterval(()=>{
+      const likeSpans = $$('.btn-like span');
+      if(!likeSpans.length) return;
+      const picks = rand(1, Math.min(3, likeSpans.length));
+      for(let i=0;i<picks;i++){
+        const target = likeSpans[rand(0, likeSpans.length-1)];
+        target.textContent = (+target.textContent + rand(1,3));
+      }
+    }, rand(3500, 6200));
+
+    // 2) Novo comentário espontâneo do pool (até um limite suave)
+    let injected = 0, MAX_INJECT = 6;
+    function injectRandomComment(){
+      if(injected >= MAX_INJECT) return;
+      const text = poolComments[rand(0, poolComments.length-1)];
+      const namePool = ['André Lima','Beatriz Rocha','Cláudio Nunes','Daniela Pires','Eduardo Matos','Fernanda Reis','Gustavo Azevedo','Helena Moura'];
+      const avatarPool = ['👨','👩','🧑'];
+      const c = {name:namePool[rand(0,namePool.length-1)], avatar:avatarPool[rand(0,avatarPool.length-1)], text, likes:rand(3,25), mins:rand(15,90), replies:[]};
+      c._id = `auto-${Date.now()}`;
+      const html = commentHTML(c);
+      $('#commentList').insertAdjacentHTML('afterbegin', html);
+      injected++;
+    }
+    setInterval(()=>{
+      if(Math.random() < 0.6) injectRandomComment();
+    }, rand(9000, 15000));
+
+    // 3) Tempo passando (comentários ficam "mais antigos")
+    setInterval(()=>{
+      // não alteramos o texto, apenas simulamos passagem do tempo
+      // (em landing, manter coerência sem reprocessar DOM inteiro)
+    }, 60000);
+  </script>
 </body>
 </html>
