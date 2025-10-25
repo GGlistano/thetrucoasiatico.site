@@ -67,6 +67,18 @@
   <section id="comments" class="container">
     <div class="card comments">
       <h2>💬 Comentários</h2>
+
+      <!-- Composer no topo -->
+      <form id="composer" class="composer" style="margin:4px 0 16px">
+        <div class="bubble">
+          <label style="display:block;font-size:13px;color:var(--muted);margin-bottom:6px">Comente como <strong>Você</strong></label>
+          <textarea id="composeText" required placeholder="Escreva um comentário..." rows="2" style="width:100%;padding:10px;border:1px solid var(--border);border-radius:8px"></textarea>
+          <div style="display:flex;gap:8px;margin-top:8px">
+            <button type="submit" class="btn" style="background:#111827;color:#fff;padding:8px 12px;border-radius:8px">Publicar</button>
+          </div>
+        </div>
+      </form>
+
       <div id="commentList"></div>
       <div class="more"><button id="loadMore">Ver mais comentários</button></div>
     </div>
@@ -118,6 +130,18 @@
 
     // ===== Render =====
     const listEl = document.getElementById('commentList');
+    // Composer topo (novo comentário como Você)
+    const composer = document.getElementById('composer');
+    const composeText = document.getElementById('composeText');
+    composer.addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const text = composeText.value.trim();
+      if(!text) return;
+      const c = {name:'Você', avatar:'🗣️', text, likes:0, mins:rand(1,3), replies:[]};
+      c._id = 'you-' + Date.now();
+      listEl.insertAdjacentHTML('afterbegin', commentHTML(c));
+      composeText.value = '';
+    });
     let rendered = 0; // quantos comentários já renderizamos
     const PAGE = 3;   // por clique
 
@@ -194,27 +218,26 @@
       if(art.querySelector('form')) return; // já existe
       const form = document.createElement('form');
       form.innerHTML = `
-        <div class="reply" style="margin-top:8px">
-          <div class="bubble">
-            <label style="display:block;font-size:13px;color:var(--muted);margin-bottom:6px">Responder como:</label>
-            <input type="text" name="name" required placeholder="Seu nome" style="width:100%;padding:10px;border:1px solid var(--border);border-radius:8px;margin-bottom:6px" />
-            <textarea name="text" required placeholder="Escreva sua resposta..." rows="2" style="width:100%;padding:10px;border:1px solid var(--border);border-radius:8px"></textarea>
-            <div style="display:flex;gap:8px;margin-top:8px">
-              <button type="submit" class="btn" style="background:#111827;color:#fff;padding:8px 12px;border-radius:8px">Publicar</button>
-              <button type="button" class="btn" onclick="this.closest('form').remove()">Cancelar</button>
+        <div class=\"reply\" style=\"margin-top:8px\">
+          <div class=\"bubble\">
+            <label style=\"display:block;font-size:13px;color:var(--muted);margin-bottom:6px\">Responder como <strong>Você</strong></label>
+            <textarea name=\"text\" required placeholder=\"Escreva sua resposta...\" rows=\"2\" style=\"width:100%;padding:10px;border:1px solid var(--border);border-radius:8px\"></textarea>
+            <div style=\"display:flex;gap:8px;margin-top:8px\">
+              <button type=\"submit\" class=\"btn\" style=\"background:#111827;color:#fff;padding:8px 12px;border-radius:8px\">Publicar</button>
+              <button type=\"button\" class=\"btn\" onclick=\"this.closest('form').remove()\">Cancelar</button>
             </div>
           </div>
         </div>`;
       art.appendChild(form);
       form.addEventListener('submit', (ev)=>{
         ev.preventDefault();
-        const name = form.name.value.trim();
         const text = form.text.value.trim();
-        if(!name || !text) return;
-        const reply = {name, avatar:'🗣️', text, likes:0, mins:rand(1,3)};
+        if(!text) return;
+        const reply = {name:'Você', avatar:'🗣️', text, likes:0, mins:rand(1,3)};
         form.insertAdjacentHTML('beforebegin', replyHTML(reply));
         form.remove();
       });
+    });
     });
 
     // Carregar mais
