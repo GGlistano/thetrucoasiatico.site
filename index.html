@@ -1,75 +1,557 @@
-
-
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>the truco</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transforme Sua Vida Íntima - Método Natural</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .icon-thumbs-up {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 10v12'/%3E%3Cpath d='M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2h0a3.13 3.13 0 0 1 3 3.88Z'/%3E%3C/svg%3E");
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+        .icon-thumbs-up-filled {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='currentColor' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 10v12'/%3E%3Cpath d='M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2h0a3.13 3.13 0 0 1 3 3.88Z'/%3E%3C/svg%3E");
+        }
+        .icon-message {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z'/%3E%3C/svg%3E");
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+        .icon-send {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m22 2-7 20-4-9-9-4Z'/%3E%3Cpath d='M22 2 11 13'/%3E%3C/svg%3E");
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+    </style>
 </head>
-<body class="bg-gray-100 text-gray-800 font-sans">
+<body>
+    <div id="root"></div>
 
-  <header class="bg-white shadow">
-    <div class="max-w-6xl mx-auto px-4 py-6 flex justify-between items-center">
-      <h1 class="text-2xl font-bold text-blue-600">the truco</h1>
-      <nav>
-        <a href="#" class="text-gray-600 hover:text-blue-600 ml-6">Início</a>
-        <a href="#" class="text-gray-600 hover:text-blue-600 ml-6">Sobre</a>
-        <a href="#" class="text-gray-600 hover:text-blue-600 ml-6">Contato</a>
-      </nav>
-    </div>
-  </header>
+    <script>
+        // Estado inicial dos comentários
+        const initialComments = [
+            {
+                id: '1',
+                author: 'Carlos Mendes',
+                avatar: '👨',
+                text: 'Será que isso realmente funciona? Alguém aqui já testou?',
+                likes: 23,
+                likedByUser: false,
+                timestamp: '2h atrás',
+                replies: [
+                    {
+                        id: '1-1',
+                        author: 'Roberto Silva',
+                        avatar: '👨‍💼',
+                        text: 'Sim funciona cara! Eu tava com problema há uns 2 anos e em 3 semanas já senti diferença. Vale muito a pena!',
+                        likes: 45,
+                        likedByUser: false,
+                        timestamp: '1h atrás'
+                    },
+                    {
+                        id: '1-2',
+                        author: 'Fernando Costa',
+                        avatar: '🧔',
+                        text: 'Funciona sim mano, eu tava desconfiado mas resolvi testar. Melhor decisão que tomei',
+                        likes: 32,
+                        likedByUser: false,
+                        timestamp: '45min atrás'
+                    }
+                ],
+                showReplies: true,
+                showReplyInput: false
+            },
+            {
+                id: '2',
+                author: 'Juliana Almeida',
+                avatar: '👩',
+                text: 'Gente, comprei pro meu marido sem ele saber e coloquei no suco dele todo dia... Em 2 semanas a diferença foi ABSURDA! Ele tá outra pessoa, nossa relação melhorou demais! ❤️',
+                likes: 187,
+                likedByUser: false,
+                timestamp: '3h atrás',
+                replies: [
+                    {
+                        id: '2-1',
+                        author: 'Mariana Souza',
+                        avatar: '👩‍🦰',
+                        text: 'Moça me passa como você fez isso? Quero fazer pro meu também 😅',
+                        likes: 28,
+                        likedByUser: false,
+                        timestamp: '2h atrás'
+                    }
+                ],
+                showReplies: true,
+                showReplyInput: false
+            },
+            {
+                id: '3',
+                author: 'Pedro Oliveira',
+                avatar: '🧑',
+                text: 'Cara, eu tinha vergonha de falar sobre isso mas esse produto literalmente salvou meu casamento. Tinha perdido a confiança em mim mesmo. Hoje me sinto com 20 anos de novo!',
+                likes: 156,
+                likedByUser: false,
+                timestamp: '5h atrás',
+                replies: [],
+                showReplies: false,
+                showReplyInput: false
+            },
+            {
+                id: '4',
+                author: 'Camila Rodrigues',
+                avatar: '👱‍♀️',
+                text: 'Meninas, posso confirmar que funciona MESMO! Meu marido começou a usar faz 1 mês e nossa vida mudou completamente. Ele tá mais disposto, mais confiante... Recomendo demais!',
+                likes: 203,
+                likedByUser: false,
+                timestamp: '6h atrás',
+                replies: [
+                    {
+                        id: '4-1',
+                        author: 'Ana Paula',
+                        avatar: '👩‍🦱',
+                        text: 'Que maravilha! Vou comprar pro meu também',
+                        likes: 12,
+                        likedByUser: false,
+                        timestamp: '5h atrás'
+                    }
+                ],
+                showReplies: true,
+                showReplyInput: false
+            },
+            {
+                id: '5',
+                author: 'Ricardo Santos',
+                avatar: '👨‍🦲',
+                text: 'Eu estava cético, mas depois de 3 semanas usando posso dizer: FUNCIONA! A diferença é notável tanto na disposição quanto na performance. Minha autoestima voltou!',
+                likes: 98,
+                likedByUser: false,
+                timestamp: '8h atrás',
+                replies: [],
+                showReplies: false,
+                showReplyInput: false
+            },
+            {
+                id: '6',
+                author: 'Amanda Lima',
+                avatar: '👩‍🦳',
+                text: 'Comprei pro meu esposo que tem 52 anos. Ele estava bem desanimado com essa questão... Gente, em 1 mês a mudança foi incrível! Ele voltou a ser o homem que conheci. Estou muito feliz! 😊',
+                likes: 145,
+                likedByUser: false,
+                timestamp: '10h atrás',
+                replies: [
+                    {
+                        id: '6-1',
+                        author: 'Patricia Ferreira',
+                        avatar: '👩',
+                        text: 'Que depoimento lindo! Vou comprar também',
+                        likes: 15,
+                        likedByUser: false,
+                        timestamp: '9h atrás'
+                    }
+                ],
+                showReplies: true,
+                showReplyInput: false
+            },
+            {
+                id: '7',
+                author: 'Marcos Ribeiro',
+                avatar: '🧑‍💼',
+                text: 'Galera, eu sou médico e posso dizer que os componentes desse produto são realmente eficazes. Obviamente cada organismo reage de uma forma, mas a fórmula é bem fundamentada.',
+                likes: 267,
+                likedByUser: false,
+                timestamp: '12h atrás',
+                replies: [
+                    {
+                        id: '7-1',
+                        author: 'João Pedro',
+                        avatar: '👨',
+                        text: 'Doutor, quanto tempo demora pra fazer efeito?',
+                        likes: 34,
+                        likedByUser: false,
+                        timestamp: '11h atrás'
+                    },
+                    {
+                        id: '7-2',
+                        author: 'Marcos Ribeiro',
+                        avatar: '🧑‍💼',
+                        text: 'Varia de pessoa pra pessoa, mas geralmente entre 2 a 4 semanas já se nota mudanças.',
+                        likes: 67,
+                        likedByUser: false,
+                        timestamp: '11h atrás'
+                    }
+                ],
+                showReplies: true,
+                showReplyInput: false
+            },
+            {
+                id: '8',
+                author: 'Fernanda Castro',
+                avatar: '👩‍🦰',
+                text: 'Eu estava quase desistindo do meu relacionamento por causa desse problema... Comprei esse produto pro meu namorado e em menos de 1 mês tudo mudou! Estamos mais unidos do que nunca ❤️',
+                likes: 178,
+                likedByUser: false,
+                timestamp: '1d atrás',
+                replies: [],
+                showReplies: false,
+                showReplyInput: false
+            },
+            {
+                id: '9',
+                author: 'André Martins',
+                avatar: '👨‍🦱',
+                text: 'Tenho 45 anos e estava tendo dificuldades. Esse produto me devolveu a confiança que eu tinha perdido. Resultado em poucas semanas. Super recomendo!',
+                likes: 124,
+                likedByUser: false,
+                timestamp: '1d atrás',
+                replies: [],
+                showReplies: false,
+                showReplyInput: false
+            },
+            {
+                id: '10',
+                author: 'Luciana Martins',
+                avatar: '👱‍♀️',
+                text: 'Meninas, funciona DEMAIS! Meu marido começou a tomar e em 2 semanas já percebi a diferença. Ele tá mais animado, mais presente... Vale cada centavo!',
+                likes: 192,
+                likedByUser: false,
+                timestamp: '1d atrás',
+                replies: [],
+                showReplies: false,
+                showReplyInput: false
+            }
+        ];
 
-  <main class="py-20 bg-gradient-to-b from-white to-gray-100">
-    <div class="max-w-4xl mx-auto text-center px-6">
-      <h2 class="text-4xl font-extrabold text-gray-900 mb-4">Transformamos o jeito de pagar em Moçambique</h2>
-      <p class="text-lg text-gray-700 mb-8">
-        Somos uma empresa moçambicana de soluções tecnológicas focada em otimizar operações digitais para negócios locais e internacionais,
-        oferecendo infraestrutura de pagamentos eficiente, escalável e totalmente integrada ao ecossistema financeiro nacional.
-      </p>
-      <a href="#sobre" class="bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition">Saiba Mais</a>
-    </div>
-  </main>
+        // Estado da aplicação
+        let comments = JSON.parse(JSON.stringify(initialComments));
+        let showAllComments = false;
+        let newComment = '';
+        let replyTexts = {};
 
-  <section id="sobre" class="py-20 bg-white">
-    <div class="max-w-5xl mx-auto px-6 grid md:grid-cols-2 gap-10 items-center">
-      <div>
-        <h3 class="text-3xl font-bold text-gray-800 mb-4">Sobre a the truco</h3>
-        <p class="text-gray-700 text-lg leading-relaxed">
-          Desenvolvemos plataformas de e-commerce, serviços de automação empresarial e sistemas de vendas digitais,
-          com foco especial em produtos digitais, cursos online, infoprodutos e soluções SaaS.
-          <br /><br />
-          Nosso objetivo principal é garantir que clientes em Moçambique possam realizar pagamentos de forma simples, segura e instantânea
-          por meio dos principais meios disponíveis no país, como M-Pesa e e-Mola.
-        </p>
-      </div>
-      <div>
-        <img src="https://cdn.pixabay.com/photo/3184290/pexels-photo-3184290.jpeg" alt="Pagamentos Digitais" class="rounded-2xl shadow-lg w-full">
-      </div>
-    </div>
-  </section>
+        // Funções auxiliares
+        function handleLike(commentId, replyId = null) {
+            comments = comments.map(comment => {
+                if (comment.id === commentId) {
+                    if (replyId) {
+                        return {
+                            ...comment,
+                            replies: comment.replies.map(reply =>
+                                reply.id === replyId
+                                    ? {
+                                        ...reply,
+                                        likes: reply.likedByUser ? reply.likes - 1 : reply.likes + 1,
+                                        likedByUser: !reply.likedByUser
+                                    }
+                                    : reply
+                            )
+                        };
+                    }
+                    return {
+                        ...comment,
+                        likes: comment.likedByUser ? comment.likes - 1 : comment.likes + 1,
+                        likedByUser: !comment.likedByUser
+                    };
+                }
+                return comment;
+            });
+            render();
+        }
 
-  <section class="bg-blue-600 text-white py-16">
-    <div class="max-w-4xl mx-auto px-6 text-center">
-      <h3 class="text-2xl font-bold mb-4">Integração direta com M-Pesa e e-Mola</h3>
-      <p class="text-lg">
-        Visamos integração direta via API com os principais meios de pagamento para reduzir falhas, melhorar a rastreabilidade
-        e garantir uma experiência fluida ao consumidor final.
-      </p>
-    </div>
-  </section>
+        function toggleReplyInput(commentId) {
+            comments = comments.map(comment =>
+                comment.id === commentId
+                    ? { ...comment, showReplyInput: !comment.showReplyInput }
+                    : comment
+            );
+            render();
+        }
 
-  <footer class="bg-gray-800 text-white py-8">
-    <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center">
-      <p>&copy; 2025 the truco. Todos os direitos reservados.</p>
-      <div class="mt-4 md:mt-0">
-        <a href="#" class="text-blue-400 hover:text-white ml-4">Facebook</a>
-        <a href="#" class="text-blue-400 hover:text-white ml-4">LinkedIn</a>
-        <a href="#" class="text-blue-400 hover:text-white ml-4">Instagram</a>
-      </div>
-    </div>
-  </footer>
+        function handleAddReply(commentId) {
+            const replyText = replyTexts[commentId];
+            if (!replyText || !replyText.trim()) return;
 
+            comments = comments.map(comment => {
+                if (comment.id === commentId) {
+                    const newReply = {
+                        id: `${commentId}-${Date.now()}`,
+                        author: 'Você',
+                        avatar: '😊',
+                        text: replyText,
+                        likes: 0,
+                        likedByUser: false,
+                        timestamp: 'Agora'
+                    };
+                    return {
+                        ...comment,
+                        replies: [...comment.replies, newReply],
+                        showReplies: true,
+                        showReplyInput: false
+                    };
+                }
+                return comment;
+            });
+
+            replyTexts[commentId] = '';
+            render();
+        }
+
+        function handleAddComment() {
+            if (!newComment.trim()) return;
+
+            const newCommentObj = {
+                id: `new-${Date.now()}`,
+                author: 'Você',
+                avatar: '😊',
+                text: newComment,
+                likes: 0,
+                likedByUser: false,
+                timestamp: 'Agora',
+                replies: [],
+                showReplies: false,
+                showReplyInput: false
+            };
+
+            comments = [newCommentObj, ...comments];
+            newComment = '';
+            render();
+        }
+
+        function toggleReplies(commentId) {
+            comments = comments.map(comment =>
+                comment.id === commentId
+                    ? { ...comment, showReplies: !comment.showReplies }
+                    : comment
+            );
+            render();
+        }
+
+        function toggleShowAllComments() {
+            showAllComments = !showAllComments;
+            render();
+        }
+
+        function updateNewComment(value) {
+            newComment = value;
+        }
+
+        function updateReplyText(commentId, value) {
+            replyTexts[commentId] = value;
+        }
+
+        // Função de renderização
+        function render() {
+            const visibleComments = showAllComments ? comments : comments.slice(0, 5);
+
+            const html = `
+                <div class="min-h-screen bg-gray-50">
+                    <!-- Header/Headline -->
+                    <div class="bg-gradient-to-r from-red-600 to-red-700 text-white py-12 px-4">
+                        <div class="max-w-4xl mx-auto text-center">
+                            <h1 class="text-3xl md:text-5xl font-bold mb-4 leading-tight">
+                                Descubra o Método Natural que Está Transformando a Vida Íntima de Milhares de Homens
+                            </h1>
+                            <p class="text-lg md:text-xl opacity-95">
+                                Recupere sua confiança e performance de forma 100% natural
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Video Container -->
+                    <div class="max-w-4xl mx-auto px-4 -mt-8">
+                        <div class="bg-white rounded-lg shadow-2xl overflow-hidden">
+                            <div class="relative bg-black" style="padding-bottom: 56.25%;">
+                                <div class="absolute inset-0 flex items-center justify-center">
+                                    <div class="text-center text-white">
+                                        <div class="text-6xl mb-4">▶️</div>
+                                        <p class="text-lg">Insira aqui o embed do vídeo da vTurb</p>
+                                        <p class="text-sm text-gray-400 mt-2">
+                                            Cole o código embed substituindo este placeholder
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Comments Section -->
+                    <div class="max-w-4xl mx-auto px-4 py-12">
+                        <div class="bg-white rounded-lg shadow-lg p-6">
+                            <h2 class="text-2xl font-bold mb-6 flex items-center gap-2">
+                                <span class="icon-message"></span>
+                                Comentários (${comments.length})
+                            </h2>
+
+                            <!-- Add New Comment -->
+                            <div class="mb-8 pb-6 border-b">
+                                <div class="flex gap-3">
+                                    <div class="flex-shrink-0">
+                                        <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white text-xl">
+                                            😊
+                                        </div>
+                                    </div>
+                                    <div class="flex-1">
+                                        <textarea
+                                            id="newCommentInput"
+                                            placeholder="Adicione um comentário..."
+                                            class="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent resize-none"
+                                            rows="3"
+                                            oninput="updateNewComment(this.value)"
+                                        >${newComment}</textarea>
+                                        <button
+                                            onclick="handleAddComment()"
+                                            ${!newComment.trim() ? 'disabled' : ''}
+                                            class="mt-2 bg-red-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-red-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                                        >
+                                            <span class="icon-send"></span>
+                                            Comentar
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Comments List -->
+                            <div class="space-y-6">
+                                ${visibleComments.map(comment => `
+                                    <div class="border-b pb-6 last:border-b-0">
+                                        <div class="flex gap-3">
+                                            <div class="flex-shrink-0">
+                                                <div class="w-10 h-10 bg-gradient-to-br from-gray-400 to-gray-600 rounded-full flex items-center justify-center text-white text-xl">
+                                                    ${comment.avatar}
+                                                </div>
+                                            </div>
+                                            <div class="flex-1">
+                                                <div class="bg-gray-50 rounded-lg p-4">
+                                                    <div class="font-semibold text-gray-900 mb-1">
+                                                        ${comment.author}
+                                                    </div>
+                                                    <p class="text-gray-700 leading-relaxed">
+                                                        ${comment.text}
+                                                    </p>
+                                                </div>
+
+                                                <div class="flex items-center gap-4 mt-2 text-sm">
+                                                    <button
+                                                        onclick="handleLike('${comment.id}')"
+                                                        class="flex items-center gap-1 font-semibold transition-colors ${comment.likedByUser ? 'text-red-600' : 'text-gray-600 hover:text-red-600'}"
+                                                    >
+                                                        <span class="${comment.likedByUser ? 'icon-thumbs-up-filled' : 'icon-thumbs-up'}"></span>
+                                                        ${comment.likes}
+                                                    </button>
+                                                    <button
+                                                        onclick="toggleReplyInput('${comment.id}')"
+                                                        class="text-gray-600 hover:text-red-600 font-semibold transition-colors"
+                                                    >
+                                                        Responder
+                                                    </button>
+                                                    <span class="text-gray-500">${comment.timestamp}</span>
+                                                </div>
+
+                                                ${comment.showReplyInput ? `
+                                                    <div class="mt-3 flex gap-2">
+                                                        <input
+                                                            type="text"
+                                                            id="replyInput-${comment.id}"
+                                                            value="${replyTexts[comment.id] || ''}"
+                                                            placeholder="Escreva uma resposta..."
+                                                            class="flex-1 border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                                                            oninput="updateReplyText('${comment.id}', this.value)"
+                                                            onkeypress="if(event.key === 'Enter') handleAddReply('${comment.id}')"
+                                                        />
+                                                        <button
+                                                            onclick="handleAddReply('${comment.id}')"
+                                                            class="bg-red-600 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-red-700 transition-colors"
+                                                        >
+                                                            <span class="icon-send"></span>
+                                                        </button>
+                                                    </div>
+                                                ` : ''}
+
+                                                ${comment.replies.length > 0 ? `
+                                                    <div class="mt-3">
+                                                        <button
+                                                            onclick="toggleReplies('${comment.id}')"
+                                                            class="text-red-600 text-sm font-semibold hover:text-red-700 mb-2"
+                                                        >
+                                                            ${comment.showReplies ? '▼' : '▶'} ${comment.replies.length} ${comment.replies.length === 1 ? 'resposta' : 'respostas'}
+                                                        </button>
+
+                                                        ${comment.showReplies ? `
+                                                            <div class="space-y-3 ml-6">
+                                                                ${comment.replies.map(reply => `
+                                                                    <div class="flex gap-2">
+                                                                        <div class="flex-shrink-0">
+                                                                            <div class="w-8 h-8 bg-gradient-to-br from-gray-300 to-gray-500 rounded-full flex items-center justify-center text-white text-sm">
+                                                                                ${reply.avatar}
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="flex-1">
+                                                                            <div class="bg-gray-100 rounded-lg p-3">
+                                                                                <div class="font-semibold text-sm text-gray-900 mb-1">
+                                                                                    ${reply.author}
+                                                                                </div>
+                                                                                <p class="text-sm text-gray-700 leading-relaxed">
+                                                                                    ${reply.text}
+                                                                                </p>
+                                                                            </div>
+                                                                            <div class="flex items-center gap-3 mt-1 text-xs">
+                                                                                <button
+                                                                                    onclick="handleLike('${comment.id}', '${reply.id}')"
+                                                                                    class="flex items-center gap-1 font-semibold transition-colors ${reply.likedByUser ? 'text-red-600' : 'text-gray-600 hover:text-red-600'}"
+                                                                                >
+                                                                                    <span class="${reply.likedByUser ? 'icon-thumbs-up-filled' : 'icon-thumbs-up'}" style="width: 12px; height: 12px;"></span>
+                                                                                    ${reply.likes}
+                                                                                </button>
+                                                                                <span class="text-gray-500">${reply.timestamp}</span>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                `).join('')}
+                                                            </div>
+                                                        ` : ''}
+                                                    </div>
+                                                ` : ''}
+                                            </div>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+
+                            ${!showAllComments && comments.length > 5 ? `
+                                <div class="mt-8 text-center">
+                                    <button
+                                        onclick="toggleShowAllComments()"
+                                        class="bg-white border-2 border-red-600 text-red-600 px-8 py-3 rounded-lg font-bold hover:bg-red-50 transition-colors"
+                                    >
+                                        Ver mais comentários (${comments.length - 5} restantes)
+                                    </button>
+                                </div>
+                            ` : ''}
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('root').innerHTML = html;
+        }
+
+        // Renderização inicial
+        render();
+    </script>
 </body>
 </html>
