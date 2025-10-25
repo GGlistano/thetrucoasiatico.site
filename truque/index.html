@@ -176,8 +176,8 @@
   </main>
 
   <script>
-    // ===== PRÉ-SELL =====
     document.addEventListener('DOMContentLoaded', function() {
+      // ===== PRÉ-SELL =====
       const enterBtn = document.getElementById('enterBtn');
       const preSell = document.getElementById('pre-sell');
       const mainContent = document.getElementById('main');
@@ -190,12 +190,11 @@
         preSell.style.display = 'none';
         mainContent.style.display = 'block';
       });
-    });
 
-    // ===== Utilidades =====
-    const $ = (sel, ctx=document) => ctx.querySelector(sel);
-    const $$ = (sel, ctx=document) => Array.from(ctx.querySelectorAll(sel));
-    const rand = (min,max) => Math.floor(Math.random()*(max-min+1))+min;
+      // ===== Utilidades =====
+      const $ = (sel, ctx=document) => ctx.querySelector(sel);
+      const $$ = (sel, ctx=document) => Array.from(ctx.querySelectorAll(sel));
+      const rand = (min,max) => Math.floor(Math.random()*(max-min+1))+min;
 
     // ===== Contador de audiência ao vivo =====
     const viewEl = $('#viewCount');
@@ -463,6 +462,8 @@
         e.stopPropagation();
       }
     }, true);
+
+    }); // Fim do DOMContentLoaded
   </script>
 </body>
 </html>
